@@ -38,8 +38,6 @@ const router = createRouter({
 });
 
 router.beforeEach(() => {
-  const menus = store.getters['menus/menus'];
-  console.log(menus);
   store.dispatch('menus/setMenus');
 });
 

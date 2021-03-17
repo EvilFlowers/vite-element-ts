@@ -1,7 +1,7 @@
 <template>
   <span>
-    <font-awesome-icon v-if="item.meta.icon" :icon="item.meta.icon"/>
-    {{ item.meta.title }}
+    <font-awesome-icon v-if="item.icon" :icon="item.icon"/>
+    {{ item.name }}
   </span>
 </template>
 
@@ -12,10 +12,6 @@ export default defineComponent({
   name: 'MenuItemContent',
   props: {
     item: Object
-  },
-  setup(props) {
-    console.log(props)
-    return {}
   }
 })
 </script>

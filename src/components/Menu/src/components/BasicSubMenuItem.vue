@@ -1,11 +1,11 @@
 <template>
   <basic-menu-item v-if="!menuHasChildren(item)" v-bind="$props" />
-  <el-submenu v-if="menuHasChildren(item)" :index="item.path">
+  <el-submenu v-if="menuHasChildren(item)" :index="item.url">
     <template #title>
       <menu-item-content :item="item" />
     </template>
     <template v-for="childrenItem in item.children || []" :key="childrenItem.path">
-      <basic-sub-menu-item :item="childrenItem"/>
+      <basic-sub-menu-item :item="childrenItem" />
     </template>
   </el-submenu>
 </template>
@@ -23,7 +23,6 @@ export default defineComponent({
   },
   setup() {
     const menuHasChildren = (menuTreeItem) => {
-      console.log(menuTreeItem)
       return Reflect.has(menuTreeItem, "children") &&
         menuTreeItem.children &&
         menuTreeItem.children.length > 0

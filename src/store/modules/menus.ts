@@ -1,4 +1,5 @@
 import { getMenuList } from '@/api/sys/menu';
+import { convertRouter } from '@/utils/menus';
 
 const state = () => ({
   menus: [],
@@ -16,8 +17,9 @@ const mutations = {
 
 const actions = {
   async setMenus({ commit }: any) {
-    const menus = await getMenuList('');
-    commit('setMenus', menus);
+    const menus: any = await getMenuList('');
+    const menuList = convertRouter(menus);
+    commit('setMenus', menuList);
   },
 };
 
