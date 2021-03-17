@@ -6,38 +6,8 @@
     <el-container>
       <el-aside width="220px">
         <el-scrollbar style="height: 100%; position: fixed; top: 0; width: 220px;">
-          <el-menu>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-            <el-menu-item>
-              menu1
-            </el-menu-item>
-          </el-menu>
+          <AppLogo />
+          <basic-menu :items="menus" />
         </el-scrollbar>
       </el-aside>
       <el-container>
@@ -50,7 +20,7 @@
           <div>header-end</div>
         </el-header>
         <el-main>
-          Main
+          <router-view />
         </el-main>
         <el-footer>
           Footer
@@ -61,12 +31,23 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import {AppLogo} from "@/components/Application"
+import { BasicMenu } from '@/components/Menu'
+import { useStore} from "vuex"
 
 export default defineComponent({
   name: 'DefaultLayout',
+  components: {
+    BasicMenu,
+    AppLogo
+  },
   setup() {
-    return {}
+    const store = useStore()
+    const menus = computed(() => store.getters['menus/menus'])
+    return {
+      menus
+    }
   }
 })
 </script>

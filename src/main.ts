@@ -16,6 +16,7 @@ import '@/styles/index.scss';
   setupRouter(app);
 
   setupStore(app);
+
   setupFontAwesome(app);
 
   await router.isReady();

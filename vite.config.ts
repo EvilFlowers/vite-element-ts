@@ -1,9 +1,10 @@
 import type { ConfigEnv, UserConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
+import { viteMockServe } from 'vite-plugin-mock';
 import { resolve } from 'path';
 
 // https://vitejs.dev/config/
-export default ({}: ConfigEnv): UserConfig => {
+export default ({ command }: ConfigEnv): UserConfig => {
   const root = process.cwd();
   return {
     root,
@@ -23,6 +24,12 @@ export default ({}: ConfigEnv): UserConfig => {
         scss: {},
       },
     },
-    plugins: [vue()],
+    plugins: [
+      vue(),
+      viteMockServe({
+        mockPath: 'mock',
+        localEnabled: command === 'serve',
+      }),
+    ],
   };
 };
