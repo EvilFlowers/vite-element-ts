@@ -1,5 +1,5 @@
 <template>
-  <div style="display: flex; align-items: center; padding-left: 7px; cursor: pointer;">
+  <div style="display: flex; align-items: center; cursor: pointer; height: 56px; padding-left: 20px">
     <img width="32" height="32" src="@/assets/logo.png"/>
     <div>
       LM-Admin

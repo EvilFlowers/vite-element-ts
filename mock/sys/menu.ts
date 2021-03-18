@@ -32,7 +32,7 @@ const menus = [
     url: '/resource/list',
     permissions: '',
     type: 1,
-    icon: 'lock ',
+    icon: 'lock',
     parentId: '581da5420c5b65308499d920a006bfb8',
   },
   {
@@ -92,7 +92,7 @@ const menus = [
     url: '/dashboard',
     permissions: '',
     type: 1,
-    icon: 'tachometer',
+    icon: 'tachometer-alt',
     parentId: '00000000000000000000000000000000',
   },
   {
@@ -104,7 +104,7 @@ const menus = [
     url: '/cooperation/material/list',
     permissions: '',
     type: 1,
-    icon: 'tickets',
+    icon: 'newspaper',
     parentId: '3369f31abef60ae8464a9469d53d6b5f',
   },
   {
@@ -188,7 +188,7 @@ const menus = [
     url: '/news/article/list',
     permissions: '',
     type: 1,
-    icon: 'wpforms',
+    icon: ['fab', 'wpforms'],
     parentId: '44a72a15ee088b4126c18973965ba0a5',
   },
   {
@@ -200,7 +200,7 @@ const menus = [
     url: '/navigation/topofform/list',
     permissions: '',
     type: 1,
-    icon: 'send',
+    icon: 'paper-plane',
     parentId: '63413880947f1b928ef04613daa06ee3',
   },
   {
@@ -212,7 +212,7 @@ const menus = [
     url: '/cooperation/list',
     permissions: '',
     type: 1,
-    icon: 'address-card-o',
+    icon: 'address-card',
     parentId: '3369f31abef60ae8464a9469d53d6b5f',
   },
   {
@@ -224,7 +224,7 @@ const menus = [
     url: '/navigation/images/list',
     permissions: '',
     type: 1,
-    icon: 'el-icon-picture-outline',
+    icon: 'image',
     parentId: '63413880947f1b928ef04613daa06ee3',
   },
   {
@@ -260,7 +260,7 @@ const menus = [
     url: '-',
     permissions: '',
     type: 1,
-    icon: 'user-circle-o',
+    icon: 'user-circle',
     parentId: '00000000000000000000000000000000',
   },
   {
@@ -284,7 +284,7 @@ const menus = [
     url: '-',
     permissions: '',
     type: 1,
-    icon: 'el-icon-star-off',
+    icon: ['far', 'star'],
     parentId: '00000000000000000000000000000000',
   },
   {
@@ -296,7 +296,7 @@ const menus = [
     url: 'http://ureport.portal.lewoo.com.cn/ureport/designer',
     permissions: '',
     type: 1,
-    icon: 'bar-chart-o',
+    icon: 'chart-bar',
     parentId: '581da5420c5b65308499d920a006bfb8',
   },
   {
@@ -308,7 +308,7 @@ const menus = [
     url: '-',
     permissions: '',
     type: 1,
-    icon: 'tickets',
+    icon: 'newspaper',
     parentId: '00000000000000000000000000000000',
   },
   {
@@ -320,7 +320,7 @@ const menus = [
     url: '-',
     permissions: '',
     type: 1,
-    icon: 'chain',
+    icon: 'link',
     parentId: '00000000000000000000000000000000',
   },
   {
@@ -332,7 +332,7 @@ const menus = [
     url: '-',
     permissions: '',
     type: 1,
-    icon: 'volume-control-phone',
+    icon: 'phone-volume',
     parentId: '00000000000000000000000000000000',
   },
 ];

@@ -1,44 +1,31 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
 import { App } from 'vue';
 import Layout from '@/layouts/default/index.vue';
 import store from '@/store';
 
+export const HomeRoute: RouteRecordRaw = {
+  path: '/',
+  name: 'Home',
+  component: Layout,
+  children: [],
+};
+
 const router = createRouter({
   history: createWebHashHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Layout,
-      meta: {
-        title: '首页',
-        icon: 'home',
-      },
-    },
-    {
-      path: '/dashboard',
-      name: 'Dashboard',
-      component: Layout,
-      meta: {
-        title: '工作台',
-      },
-      children: [
-        {
-          path: 'workbench',
-          name: 'Workbench',
-          component: () => import('@/components/HelloWorld.vue'),
-          meta: {
-            title: '工作台',
-          },
-        },
-      ],
-    },
-  ],
+  routes: [],
   strict: true,
 });
 
-router.beforeEach(() => {
-  store.dispatch('menus/setMenus');
+router.beforeEach(async (to, _from, next) => {
+  const menus = await store.getters['menus/menus'];
+  console.log(menus.length);
+  if (menus.length === 0) {
+    const routes = await store.dispatch('menus/setMenus');
+    router.addRoute(routes);
+    next({ ...to, replace: true });
+  } else {
+    next();
+  }
 });
 
 export function setupRouter(app: App) {

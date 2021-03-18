@@ -1,12 +1,13 @@
 <template>
-  <el-menu-item>
+  <el-menu-item :index="item.id" @click="handleClick(item)">
     <menu-item-content :item="item" />
   </el-menu-item>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent, unref } from 'vue'
 import MenuItemContent from './MenuItemContent.vue'
+import { useRouter} from 'vue-router'
 
 export default defineComponent({
   name: 'BasicMenuItem',
@@ -14,8 +15,14 @@ export default defineComponent({
   props: {
     item: Object
   },
-  setup() {
-    return {}
+  setup(props) {
+    const router = useRouter()
+    const handleClick = (item) => {
+      router.push(item.url)
+    }
+    return {
+      handleClick
+    }
   }
 })
 </script>

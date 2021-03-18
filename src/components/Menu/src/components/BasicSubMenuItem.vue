@@ -1,10 +1,10 @@
 <template>
   <basic-menu-item v-if="!menuHasChildren(item)" v-bind="$props" />
-  <el-submenu v-if="menuHasChildren(item)" :index="item.url">
+  <el-submenu v-if="menuHasChildren(item)" :index="item.id">
     <template #title>
       <menu-item-content :item="item" />
     </template>
-    <template v-for="childrenItem in item.children || []" :key="childrenItem.path">
+    <template v-for="childrenItem in item.children || []" :key="childrenItem.id">
       <basic-sub-menu-item :item="childrenItem" />
     </template>
   </el-submenu>

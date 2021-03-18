@@ -13,7 +13,7 @@
       <el-container>
         <el-header style="display: flex; justify-content: space-between; align-items: center">
           <div style="align-items: center">
-            <span>
+            <span style="font-size: 18px">
               <font-awesome-icon icon="outdent" title="收起" />
             </span>
           </div>

@@ -1,4 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
+import { HomeRoute } from '@/router';
+import { isExternal } from '@/utils/validate';
 
 export interface Menu {
   id: string;
@@ -16,31 +18,37 @@ export interface Menu {
 
 enum Menus {
   RootNode = '00000000000000000000000000000000',
+  SubMenuUrl = '-',
 }
 
-export const convertRouter = (menus: Menu[], rootId: string = Menus.RootNode) => {
-  console.log(menus);
-  console.log(rootId);
-  const routes: RouteRecordRaw[] = [];
+export const convertMenus = (menus: Menu[], rootId: string = Menus.RootNode) => {
   const menuList: Menu[] = menus.filter((menu) => menu.parentId === rootId);
-  let path: string;
-  if (rootId === Menus.RootNode) {
-    path = '@/layouts/default/index.vue';
-  }
-  for (let i = 0; i < menuList.length; i++) {
-    path = `@/${menuList[i].url}.vue`;
-    const route: RouteRecordRaw = {
-      path: menuList[i].url,
-      name: menuList[i].name,
-      component: () => require(path),
-    };
-    routes.push(route);
-    menuList[i].children = menus.filter((menu) => menu.parentId === menuList[i].id);
-    if (menuList[i].children.length > 0) {
-      convertRouter(menuList[i].children, menuList[i].id);
-    }
-  }
-  console.log(routes);
-  console.log(menuList);
+  menuList.forEach((menu) => {
+    menu.children = menus.filter((m) => m.parentId === menu.id);
+    /*let menus1 = convertMenus(menus, menu.id);
+    if (menus1.length > 0) {
+      menu.children = menus1;
+    } else {
+      return;
+    }*/
+  });
   return menuList;
+};
+
+export const convertRouter = (menuList: Menu[], routes: RouteRecordRaw = HomeRoute) => {
+  menuList.forEach((menu) => {
+    let route: RouteRecordRaw;
+    if (menu.url !== Menus.SubMenuUrl && !isExternal(menu.url)) {
+      route = {
+        path: menu.url,
+        name: menu.url,
+        component: () => import(`../views${menu.url}/index.vue`),
+      };
+      routes.children?.push(route);
+      /*if (menuList[i].children && menuList[i].children.length > 0) {
+        convertRouter(menuList[i].children, route);
+      }*/
+    }
+  });
+  return routes;
 };
