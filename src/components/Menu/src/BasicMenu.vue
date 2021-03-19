@@ -1,5 +1,8 @@
 <template>
-  <el-menu>
+  <el-menu
+    unique-opened
+    :collapse="true"
+  >
     <template v-for="item in items" :key="item.path">
       <basic-sub-menu-item :item="item" />
     </template>

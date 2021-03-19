@@ -1,8 +1,6 @@
 <template>
-  <span style="padding-right: 5px; font-size: 14px; display: inline-flex;">
-      <font-awesome-icon v-if="item.icon" :icon="item.icon"/>
-  </span>
-  <span style="font-size: 14px">{{ item.name }}</span>
+  <font-awesome-icon v-if="item.icon" :icon="item.icon" :title="item.name" style="font-size: 16px; display: inline-flex;" />
+  <span style="font-size: 14px; padding-left: 8px">{{ item.name }}</span>
 </template>
 
 <script>

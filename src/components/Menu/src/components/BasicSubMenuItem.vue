@@ -14,6 +14,7 @@
 import { defineComponent } from 'vue'
 import BasicMenuItem from './BasicMenuItem.vue'
 import MenuItemContent from './MenuItemContent.vue'
+import {Menu} from "@/utils/menus";
 
 export default defineComponent({
   name: 'BasicSubMenuItem',
@@ -22,7 +23,7 @@ export default defineComponent({
     item: Object
   },
   setup() {
-    const menuHasChildren = (menuTreeItem) => {
+    const menuHasChildren = (menuTreeItem: Menu) => {
       return Reflect.has(menuTreeItem, "children") &&
         menuTreeItem.children &&
         menuTreeItem.children.length > 0

@@ -5,9 +5,10 @@
 </template>
 
 <script>
-import { defineComponent, unref } from 'vue'
+import { defineComponent } from 'vue'
 import MenuItemContent from './MenuItemContent.vue'
 import { useRouter} from 'vue-router'
+import { isExternal } from '@/utils/validate'
 
 export default defineComponent({
   name: 'BasicMenuItem',
@@ -15,10 +16,14 @@ export default defineComponent({
   props: {
     item: Object
   },
-  setup(props) {
+  setup() {
     const router = useRouter()
-    const handleClick = (item) => {
-      router.push(item.url)
+    const handleClick = ({url}) => {
+      if (isExternal(url)) {
+        window.open(url, '_blank')
+      } else {
+        router.push(url)
+      }
     }
     return {
       handleClick
@@ -27,6 +32,12 @@ export default defineComponent({
 })
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
+.lm-menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 </style>

@@ -4,6 +4,7 @@ import { setElementPlus } from '@/plugins/element-plus';
 import router, { setupRouter } from '@/router';
 import { setupStore } from '@/store';
 import { setupFontAwesome } from '@/plugins/fontAwesome';
+import { setGlobalAxios } from '@/utils/request';
 import 'element-plus/lib/theme-chalk/index.css';
 
 import '@/styles/index.scss';
@@ -18,6 +19,8 @@ import '@/styles/index.scss';
   setupStore(app);
 
   setupFontAwesome(app);
+
+  setGlobalAxios(app);
 
   await router.isReady();
 
