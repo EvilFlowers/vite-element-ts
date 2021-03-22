@@ -7,13 +7,23 @@ export const HomeRoute: RouteRecordRaw = {
   path: '/',
   name: 'Home',
   component: Layout,
-  children: [],
+  redirect: 'welcome',
+  children: [
+    {
+      path: 'welcome',
+      name: 'welcome',
+      component: import('@/views/welcome/index.vue'),
+      meta: {
+        affix: true,
+        title: '首页',
+      },
+    },
+  ],
 };
 
 const router = createRouter({
   history: createWebHashHistory(),
   routes: [],
-  strict: true,
 });
 
 router.beforeEach(async (to, _from, next) => {
@@ -22,6 +32,9 @@ router.beforeEach(async (to, _from, next) => {
   if (menus.length === 0) {
     const routes = await store.dispatch('menus/setMenus');
     router.addRoute(routes);
+    /*routes.forEach((route) => {
+      router.addRoute('Home', route);
+    });*/
     next({ ...to, replace: true });
   } else {
     next();

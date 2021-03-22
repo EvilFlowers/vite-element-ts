@@ -28,31 +28,28 @@
       </div>
     </div>
     <div class="tabs">
-      <el-tabs v-model="selectTab" type="card" class="tabs-content" closable>
+      <el-tabs v-model="selectTab" type="card" class="tabs-content">
         <el-tab-pane
           v-for="item in visitedRoutes"
           :key="item.path"
           :name="item.name"
+          :closable="!isAffix(item)"
         >
           <template #label>
-            <span @contextmenu.prevent="openMenu(item, e)">{{ item.meta.title }}</span>
+            <span @click.right.prevent="openMenu(item, $event)">{{ item.meta.title }}</span>
           </template>
         </el-tab-pane>
       </el-tabs>
-      <teleport to="body">
-        <div v-show="menuVisible" style="position: fixed; z-index: 2001" :style="{'left': left + 'px', 'top': top + 'px'}">
-          <el-dropdown>
-            <el-dropdown-menu>
-              <el-dropdown-item @click="refreshRoute">重新加载</el-dropdown-item>
-              <el-dropdown-item @click="closeSelectTab">关闭当前</el-dropdown-item>
-              <el-dropdown-item @click="closeLeftTabs">关闭左侧</el-dropdown-item>
-              <el-dropdown-item @click="closeRightTabs">关闭右侧</el-dropdown-item>
-              <el-dropdown-item @click="closeOtherTabs">关闭其他</el-dropdown-item>
-              <el-dropdown-item @click="closeAllTabs">关闭全部</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </teleport>
+      <div v-show="menuVisible" style="position: fixed; z-index: 2001" :style="{'left': left + 'px', 'top': top + 'px'}">
+        <el-menu class="lm-menu">
+          <el-menu-item @click="refreshRoute">重新加载</el-menu-item>
+          <el-menu-item @click="closeSelectTab">关闭当前</el-menu-item>
+          <el-menu-item @click="closeLeftTabs">关闭左侧</el-menu-item>
+          <el-menu-item @click="closeRightTabs">关闭右侧</el-menu-item>
+          <el-menu-item @click="closeOtherTabs">关闭其他</el-menu-item>
+          <el-menu-item @click="closeAllTabs">关闭全部</el-menu-item>
+        </el-menu>
+      </div>
     </div>
   </el-header>
 </template>
@@ -65,7 +62,7 @@ import path from 'path'
 
 export default defineComponent({
   name: 'LayoutHeader',
-  setup() {
+  setup(props, {emit}) {
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
@@ -77,7 +74,7 @@ export default defineComponent({
     const top = ref(0)
     const left = ref(0)
     const visitedRoutes = computed(() => store.getters["tabsBar/visitedRoutes"])
-    const routes = computed(() => store.getters["routes/routes"])
+    const routes = computed(() => store.getters["menus/routes"])
     const openMenu = (item, e) => {
       left.value = e.clientX
       top.value = e.clientY
@@ -87,6 +84,16 @@ export default defineComponent({
 
     const closeMenu = () => { menuVisible.value = false }
 
+    const initAffixTabs = (routes) => {
+      routes.forEach(route => {
+        if (route.meta && route.meta.affix) {
+          console.log(route)
+          addTabs(route)
+        }
+        if (route.children) initAffixTabs(route.children)
+      })
+    }
+
     watch(menuVisible, (value) => {
       if (value) {
         window.addEventListener('click', closeMenu)
@@ -95,8 +102,14 @@ export default defineComponent({
       }
     })
 
+    watch(() => route.path, () => {
+      addTabs(route)
+    })
+
     const isActive = (tab) => (tab.path === route.path)
-    const isAffix = (route) => (route.meta && route.meta.affix)
+    const isAffix = (route) => {
+      return route.meta && route.meta.affix
+    }
 
     const filterAffixTabs = (routes, basePath = "/") => {
       let tabs = []
@@ -129,10 +142,10 @@ export default defineComponent({
       }
     }
 
-    const addTabs = () => {
+    const addTabs = async (route) => {
       const { name } = route
       if (name) {
-        store.dispatch("tabsBar/addVisitedRoute", route)
+        await store.dispatch("tabsBar/addVisitedRoute", route)
       }
       return false;
     }
@@ -189,6 +202,10 @@ export default defineComponent({
       if (route.path !== view.path) router.push(view)
       return view
     }
+
+    console.log(routes)
+    initAffixTabs(routes.value)
+    addTabs(route)
     return {
       openMenu,
       menuVisible,
@@ -201,7 +218,9 @@ export default defineComponent({
       closeOtherTabs,
       closeAllTabs,
       closeSelectTab,
-      visitedRoutes
+      visitedRoutes,
+      isAffix,
+      isActive
     }
   }
 })
@@ -273,5 +292,9 @@ export default defineComponent({
       }
     }
   }
+}
+
+.lm-menu {
+  border-right: none;
 }
 </style>

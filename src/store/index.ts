@@ -1,6 +1,7 @@
 import { createStore } from 'vuex';
 import { App } from 'vue';
 import menus from './modules/menus';
+import tabsBar from './modules/tabsBar';
 
 /*const files = import.meta.globEager('./modules/!*.ts');
 
@@ -12,6 +13,7 @@ for (const path in files) {
 const store = createStore({
   modules: {
     menus,
+    tabsBar,
   },
 });
 

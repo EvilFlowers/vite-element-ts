@@ -1,9 +1,9 @@
 <template>
-<!--  <img alt="Vue logo" src="./assets/logo.png" />
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />-->
-  <keep-alive>
-    <router-view/>
-  </keep-alive>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component"/>
+    </keep-alive>
+  </router-view>
 </template>
 
 <script lang="ts">

@@ -1,6 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
-import { HomeRoute } from '@/router';
 import { isExternal } from '@/utils/validate';
+import { HomeRoute } from '@/router';
 
 export interface Menu {
   id: string;
@@ -43,6 +43,9 @@ export const convertRouter = (menuList: Menu[], routes: RouteRecordRaw = HomeRou
         path: menu.url,
         name: menu.url,
         component: () => import(`../views${menu.url}/index.vue`),
+        meta: {
+          title: menu.name,
+        },
       };
       routes.children?.push(route);
       /*if (menuList[i].children && menuList[i].children.length > 0) {
