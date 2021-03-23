@@ -10,9 +10,9 @@ export const HomeRoute: RouteRecordRaw = {
   redirect: 'welcome',
   children: [
     {
-      path: 'welcome',
-      name: 'welcome',
-      component: import('@/views/welcome/index.vue'),
+      path: '/welcome',
+      name: '/welcome',
+      component: () => import('@/views/welcome/index.vue'),
       meta: {
         affix: true,
         title: '首页',

@@ -2,7 +2,7 @@
   <el-header>
     <div style="display: flex; justify-content: space-between; align-items: center">
       <div style="display: flex; align-items: center; justify-content: center;">
-            <span style="font-size: 18px">
+            <span @click="toggleCollapse" style="font-size: 18px">
               <font-awesome-icon icon="outdent" title="收起" />
             </span>
         <el-breadcrumb separator="/">
@@ -203,6 +203,8 @@ export default defineComponent({
       return view
     }
 
+    // const toggleCollapse = () => {}
+
     console.log(routes)
     initAffixTabs(routes.value)
     addTabs(route)
@@ -220,7 +222,8 @@ export default defineComponent({
       closeSelectTab,
       visitedRoutes,
       isAffix,
-      isActive
+      isActive,
+      toggleCollapse: () => store.dispatch('app/toggleCollapse')
     }
   }
 })

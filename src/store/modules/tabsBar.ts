@@ -15,6 +15,7 @@ const getters = {
 
 const mutations = {
   addVisitedRoute(state: TabsState, route: RouteLocationNormalized) {
+    console.log('-------------', route.path);
     let target = state.visitedRoutes.find((item) => item.path === route.path);
     if (target) {
       if (route.fullPath !== target.fullPath) Object.assign(target, route);

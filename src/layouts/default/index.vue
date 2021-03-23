@@ -4,12 +4,7 @@
       Header
     </el-header>-->
     <el-container>
-      <el-aside class="lm-aside">
-        <AppLogo />
-        <el-scrollbar class="lm-menu-scrollbar">
-          <basic-menu :items="menus" />
-        </el-scrollbar>
-      </el-aside>
+      <Sider/>
       <el-container>
         <LayoutHeader />
         <el-main>
@@ -23,36 +18,27 @@
 
 <script>
   import { computed, defineComponent, unref } from 'vue';
-  import { AppLogo } from '@/components/Application';
-  import { BasicMenu } from '@/components/Menu';
+
   import { useStore } from 'vuex';
   import LayoutHeader from '@/layouts/default/header/index.vue'
+  import Sider from '@/layouts/default/sider/index.vue'
 
   export default defineComponent({
     name: 'DefaultLayout',
     components: {
+      Sider,
       LayoutHeader,
-      BasicMenu,
-      AppLogo,
     },
     setup() {
       const store = useStore();
       const menus = computed(() => store.getters['menus/menus']);
       return {
-        menus
+        menus,
+        collapse: computed(() => store.getters['app/collapse'])
       };
     },
   });
 </script>
 
 <style lang="scss" scoped>
-.lm-aside {
-  width: $base-left-menu-width-min !important;
-}
-.lm-menu-scrollbar {
-  height: 100%;
-  position: fixed;
-  top: 56px;
-  width: $base-left-menu-width-min;
-}
 </style>

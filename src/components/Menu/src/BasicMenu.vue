@@ -1,7 +1,8 @@
 <template>
   <el-menu
     unique-opened
-    :collapse="true"
+    :collapse="collapse"
+    class="lm-menu"
   >
     <template v-for="item in items" :key="item.path">
       <basic-sub-menu-item :item="item" />
@@ -10,7 +11,8 @@
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue'
+import {useStore} from 'vuex'
 import BasicSubMenuItem from './components/BasicSubMenuItem.vue'
 
 export default defineComponent({
@@ -20,11 +22,16 @@ export default defineComponent({
     items: Array
   },
   setup() {
-    return {}
+    const store = useStore()
+    return {
+      collapse: computed(() => store.getters['app/collapse'])
+    }
   }
 })
 </script>
 
 <style scoped>
-
+.lm-menu {
+  border-right: none;
+}
 </style>

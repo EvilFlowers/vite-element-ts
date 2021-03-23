@@ -3,7 +3,7 @@ $base-left-menu-width: 220px;
 // 左侧导航栏未折叠时右侧内容的宽度
 $base-right-content-width: calc(100% - #{$base-left-menu-width});
 // 左侧导航栏折叠时的宽度
-$base-left-menu-width-min: 64px;
+$base-left-menu-width-min: 65px;
 // 左侧导航栏折叠时右侧内容的宽度
 $base-right-content-width-min: calc(100% - #{$base-left-menu-width-min});
 // nav-bar的高度
